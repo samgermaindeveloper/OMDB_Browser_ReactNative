@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
 //import { FlatList } from 'react-native-gesture-handler'
 import { fetchRequest } from '../Functions/fetchRequest.js'
+import PageNavigationBar from '../components/PageNavigationBar.js'
 
 const styles = StyleSheet.create({
     movieCell:{
@@ -68,16 +69,31 @@ const MovieCell = (props) => {
 }
 
 /**
+ * Sends a request to search the OMDB api for a string. Navigates to a screen displaying the movies that match the search if the search is valid.
+ * @param {Object} getArguments : The key,value pairs to append to the search api url
+ * @param {Object} navigation : The navigation object which dictates what screens to navigate to
+ */
+async function changePage(getArguments,navigation){
+    let request = await fetchRequest(getArguments)
+    if (request.Response === "True"){
+        navigation.navigate('MovieListScreen', {request: request})
+    }else{
+        //If the search returned no results, navigate to the error screen
+        navigation.navigate('ErrorScreen', {errorMessage: request.Error})            
+    }
+}
+
+/**
  * The Screen displayed when a movie is searched for
  * @param {Object} props.navigation.getParam('request') : The response object returned from a search on the OMDB api
  */
 class MovieListScreen extends React.Component {
     render(){
         const { navigation } = this.props;
-        const data = navigation.getParam('request').Search
         return(
             <ScrollView>
                 {navigation.getParam('request').Search.map(movie => <MovieCell source={movie.Poster} title={movie.Title} year={movie.Year} imdbID={movie.imdbID} key={movie.imdbID} navigation={navigation}/>)}
+                <PageNavigationBar navigation={navigation} getArguments={navigation.getParam('getArguments')} totalResults={navigation.getParam('request').totalResults}/>
             </ScrollView>
         )
 //        {navigation.getParam('request').Search.map(movie => <MovieCell source={movie.Poster} title={movie.Title} year={movie.Year} imdbID={movie.imdbID} navigation={navigation}/>)}

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 async function search(getArguments,navigation){
     let request = await fetchRequest(getArguments)
     if (request.Response === "True"){
-        navigation.navigate('MovieListScreen', {request: request})
+        navigation.navigate('MovieListScreen', {request: request, getArguments: getArguments})
     }else{
         //If the search returned no results, navigate to the error screen
         navigation.navigate('ErrorScreen', {errorMessage: request.Error})            
@@ -75,11 +75,12 @@ const SearchButton = props => (
  */
 class SearchScreen extends React.Component {
 
-    state = {search:""}
+    state = {search:"", pageNumber:"1"}
 
     render(){
         getArguments = {
-            search: this.state.search
+            search: this.state.search,
+            pageNumber: this.state.pageNumber
         }
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.outerContainer}>

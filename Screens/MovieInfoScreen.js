@@ -72,7 +72,7 @@ class MovieInfoScreen extends React.Component {
      * @param {String} key 
      */
     isSideViewKey(key){
-        return key === 'Country' || key === 'Language' || key === 'Runtime' || key === 'Released' || key === 'Rated'  || key === 'Director'
+        return key === 'Country' || key === 'Runtime' || key === 'Released' || key === 'Rated' 
     }
 
     /**
