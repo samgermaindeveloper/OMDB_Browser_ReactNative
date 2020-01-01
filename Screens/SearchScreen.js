@@ -1,11 +1,14 @@
 import React from 'react'
-import {KeyboardAvoidingView,Text,TextInput, StyleSheet, TouchableOpacity} from 'react-native'
-import {fetchRequest} from '../fetchRequest.js'
+import {View, KeyboardAvoidingView,Text,TextInput, StyleSheet, TouchableOpacity} from 'react-native'
+import {fetchRequest} from '../Functions/fetchRequest.js'
 
 const styles = StyleSheet.create({
-    container: {
+    outerContainer: {
         flex:1,
         backgroundColor: '#C8FEFE',
+        justifyContent: 'center'
+    },
+    innerContainer:{
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -79,10 +82,12 @@ class SearchScreen extends React.Component {
             search: this.state.search
         }
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <Text style={styles.searchTitle}>Search for a Movie in the OMDB Database</Text>
-                <TextInput style={styles.searchField} onChangeText={text => this.setState({search:text})} ></TextInput>
-                <SearchButton navigation = {this.props.navigation} getArguments={getArguments}/>
+            <KeyboardAvoidingView behavior="padding" style={styles.outerContainer}>
+                <View style={styles.innerContainer}>
+                    <Text style={styles.searchTitle}>Search for a Movie in the OMDB Database</Text>
+                    <TextInput style={styles.searchField} onChangeText={text => this.setState({search:text})} ></TextInput>
+                    <SearchButton navigation = {this.props.navigation} getArguments={getArguments}/>
+                </View>
             </KeyboardAvoidingView>
         )
     }

@@ -49,6 +49,12 @@ const styles = StyleSheet.create({
     }
 })
 
+/**
+ * Create a <Text> component for each attribute of the movie that looks like "key: value" where key is bolded
+ * @param {String} props.k : Describes the attribute
+ * @param {String} props.value : Attribute
+ * @param {Object} style : StyleSheet styling description
+*/
 var DisplayedAttribute = (props) => {
     return(
         <Text style={props.style}><Text style={{fontWeight:'bold'}}>{props.k}</Text>:  {props.value}</Text>
@@ -75,16 +81,6 @@ class MovieInfoScreen extends React.Component {
      */
     isDisplayedAttribute(key){
         return key != 'Year' && key != 'Title' && key != 'Response' && key != 'Ratings' && key != 'Poster'
-    }
-
-    /**
-     * Create a <Text> component for each attribute of the movie that looks like "key: value" where key is bolded
-     * @param {*} key : Describes the attribute
-     * @param {*} value : Attribute
-     * @param {*} style : StyleSheet styling description
-     */
-    displayedAttributeComponent(key,value,style){
-        return <Text key={key} style={style}><Text style={{fontWeight:'bold'}}>{key}</Text>:  {value}</Text>
     }
 
     render(){

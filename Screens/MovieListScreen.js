@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
 //import { FlatList } from 'react-native-gesture-handler'
-import { fetchRequest } from '../fetchRequest.js'
+import { fetchRequest } from '../Functions/fetchRequest.js'
 
 const styles = StyleSheet.create({
     movieCell:{
